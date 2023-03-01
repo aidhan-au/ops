@@ -1,0 +1,21 @@
+all:
+  vars:
+    ansible_user: aidhan
+
+  children:
+    aus:
+      children:
+        syd:
+          hosts: 
+            aela.aidhan.net:
+        per:
+          hosts:
+            lola.aidhan.net:
+    usa:
+      children:
+        sfo:
+        atl:
+    eur:
+      children:
+        lon:
+        fra:
