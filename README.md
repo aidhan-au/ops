@@ -1,2 +1,2 @@
-# systems
+# Operations
 Repository of documentation, scripts and playbooks to effectively orchestrate resources and systems
