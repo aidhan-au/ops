@@ -4,7 +4,7 @@ Designed for Debian 11 - may work with previous versions and/or recent Ubuntu re
 Update and get basic packages
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y git build-essential zip mosh wget curl nano ufw ca-certificates curl gnupg gnupg2 lsb-release debian-archive-keyring
+sudo apt install -y git build-essential zip mosh wget curl nano ufw ca-certificates gnupg gnupg2 lsb-release debian-archive-keyring
 ```
 
 Add a user - replace username if required
