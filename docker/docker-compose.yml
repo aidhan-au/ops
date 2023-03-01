@@ -1,0 +1,8 @@
+web:
+  image: nginx:alpine-slim
+  volumes:
+   - /srv:/usr/share/nginx/html
+   - ../nginx:/etc/nginx:ro
+  ports:
+   - "80:80"
+   - "443:443"
