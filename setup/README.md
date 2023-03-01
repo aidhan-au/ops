@@ -18,26 +18,35 @@ Remove old users - modify usernames as required
 sudo deluser --remove-home --remove-all-files debian
 ```
 
+Install GitHub CLI
+```bash
+sudo mkdir -m 0755 -p /etc/apt/keyrings; \
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/github-cli.gpg
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/github-cli.gpg] \
+https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
+sudo apt update && sudo apt install -y gh
+```
+
 Install Docker
 ```bash
-sudo mkdir -m 0755 -p /etc/apt/keyrings || \
+sudo mkdir -m 0755 -p /etc/apt/keyrings; \
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
-    https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
-    | sudo tee /etc/apt/sources.list.d/docker.list
+https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
 Install nginx
 ```bash
-sudo mkdir -m 0755 -p /etc/apt/keyrings || \
+sudo mkdir -m 0755 -p /etc/apt/keyrings; \
 curl -fsSL https://nginx.org/keys/nginx_signing.key | sudo gpg --dearmor -o /etc/apt/keyrings/nginx.gpg
 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/nginx.gpg] \
-    http://nginx.org/packages/debian $(lsb_release -cs) nginx" \
-    | sudo tee /etc/apt/sources.list.d/nginx.list
+http://nginx.org/packages/debian $(lsb_release -cs) nginx" | sudo tee /etc/apt/sources.list.d/nginx.list > /dev/null
 
 sudo apt update && sudo apt install -y nginx
 ```
