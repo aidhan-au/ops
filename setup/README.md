@@ -18,6 +18,14 @@ Remove old users - modify usernames as required
 sudo deluser --remove-home --remove-all-files debian
 ```
 
+Do basic security - firewall up, disable root login, force key auth
+```bash
+sudo ufw disable && sudo ufw reset && sudo ufw allow 22 && sudo ufw enable
+
+wget -O - -o /dev/null https://raw.githubusercontent.com/aidhan-creative/ops/main/setup/sshd_config > /etc/ssh/sshd_config && \
+sudo systemctl restart ssh
+```
+
 Install GitHub CLI
 ```bash
 sudo mkdir -m 0755 -p /etc/apt/keyrings; \
