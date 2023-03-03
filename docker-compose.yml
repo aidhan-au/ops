@@ -10,7 +10,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.web.tls=true"
       - "traefik.http.routers.web.tls.certresolver=lets-encrypt"
-      - "traefik.http.routers.web.rule=Host('lola.aidhan.net')"
+      - "traefik.http.routers.web.rule=Host(`lola.aidhan.net`)"
 
   proxy:
     image: traefik:latest
