@@ -4,14 +4,16 @@ services:
   web:
     image: nginx:alpine
     volumes:
+      - ./conf/nginx:/etc/nginx
       - /srv:/usr/share/nginx/html
-      - /root/ops/nginx:/etc/nginx:ro
+    ports:
+      - "80:80"
      
   proxy:
     image: traefik:latest
     volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
+    - ./conf/traefik:/etc/traefik
+    - /var/run/docker.sock:/var/run/docker.sock:ro
     command: --api.insecure=true --providers.docker
     ports:
-      - "80:80"
       - "8080:8080"
