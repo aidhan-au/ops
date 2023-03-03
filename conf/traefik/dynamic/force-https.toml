@@ -3,7 +3,7 @@
     entryPoints = ["http"]
     middlewares = ["force-https"]
     rule = "HostRegexp(`{any:.+}`)"
-    service = "noop"
+    service = "ops-web"
 
 [http.middlewares]
   [http.middlewares.force-https.redirectScheme]
