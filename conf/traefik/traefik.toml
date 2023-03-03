@@ -14,6 +14,6 @@
     address = ":443"
 
 [certificatesResolvers.lets-encrypt.acme]
-  storage = "/etc/traefik/acme.json"
+  storage = "/etc/traefik/certs/all.json"
   email = "admin@aidhan.net"
   [certificatesResolvers.lets-encrypt.acme.tlsChallenge]
