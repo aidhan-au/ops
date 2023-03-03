@@ -8,19 +8,5 @@ services:
       - /srv:/usr/share/nginx/html
     ports: 
       - "80:80"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.web.tls=true"
-      - "traefik.http.routers.web.tls.certresolver=lets-encrypt"
-      - "traefik.http.routers.web.rule=Host(`lola.aidhan.net`)"
-   
-
-  proxy:
-    image: traefik:latest
-    volumes:
-    - ./conf/traefik:/etc/traefik
-    - /var/run/docker.sock:/var/run/docker.sock:ro
-    command: --api.insecure=true --providers.docker
-    ports:
       - "443:443"
-      - "8080:8080"
+  
