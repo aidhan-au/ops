@@ -1,3 +1,10 @@
-:80
+{
+    auto_https off
+    encode zstd gzip
+}
 
-respond "Hello, world!"
+caddy.aidhan.me {
+    root * /srv/public
+    php_fastcgi php-fpm:9000
+    file_server browse
+}
