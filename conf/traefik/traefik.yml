@@ -1,6 +1,3 @@
-experimental:
-  http3: true
-
 entryPoints:
   web:
     address: ":80"
@@ -10,7 +7,6 @@ entryPoints:
     http:
       tls:
         certResolver: letsencrypt
-    http3: {}
 
 
 providers:
@@ -25,15 +21,14 @@ certificatesResolvers:
       caServer: https://acme-v02.api.letsencrypt.org/directory
       email: admin@aidhan.me
       storage: /data/acme.json
-      httpChallenge:
-        entryPoint: web
-  letsencrypt-staging:
+      tlsChallenge: {}
+
+  lestaging:
     acme:
       caServer: https://acme-staging-v02.api.letsencrypt.org/directory
       email: admin@aidhan.me
       storage: /data/acme-staging.json
-      httpChallenge:
-        entryPoint: web
+      tlsChallenge: {}
 
 api:
   insecure: true
