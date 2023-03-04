@@ -4,24 +4,24 @@ services:
   web:
     image: nginx:alpine
     volumes:
-     - /srv:/srv
-     - nginx_data:/data
-     - $PWD/conf/nginx:/etc/nginx
+     - "/srv:/srv"
+     - "nginx_data:/data"
+     - "./conf/nginx:/etc/nginx"
 
   caddy:
     image: caddy:alpine
     volumes:
-     - /srv:/srv
-     - caddy_data:/data
-     - $PWD/conf/caddy:/config
-     #- $PWD/conf/caddy/Caddyfile:/etc/caddy/Caddyfile
+     - "/srv:/srv"
+     - "caddy_data:/data"
+     - "./conf/caddy:/config"
+     - "./conf/caddy/Caddyfile:/etc/caddy/Caddyfile"
 
   proxy:
     image: traefik:latest
     volumes:
-     - traefik_data:/data
-     - /var/run/docker.sock:/var/run/docker.sock
-     - $PWD/conf/traefik:/etc/traefik
+      - "traefik_data:/data"
+      - "./conf/traefik:/etc/traefik"
+      - "/var/run/docker.sock:/var/run/docker.sock"
     ports:
      - "80:80"
      - "443:443"
