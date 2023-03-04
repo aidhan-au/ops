@@ -1,6 +1,5 @@
 {
     auto_https off
-    encode zstd gzip
 }
 
 caddy.aidhan.me {
