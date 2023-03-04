@@ -1,22 +1,30 @@
 version: "3"
 
 services:
-  web:
+  web-1:
+    container_name: "nginx"
     image: nginx:alpine
     volumes:
      - "/srv:/srv"
      - "nginx_data:/data"
      - "./conf/nginx:/etc/nginx"
+    labels:
+      - "traefik.enable=true"
 
-  caddy:
+  web-2:
+    container_name: "caddy"
     image: caddy:alpine
     volumes:
      - "/srv:/srv"
      - "caddy_data:/data"
      - "./conf/caddy:/config"
      - "./conf/caddy/Caddyfile:/etc/caddy/Caddyfile"
+    labels:
+      - "traefik.enable=true"
 
   proxy:
+    container_name: "traefic"
+
     image: traefik:latest
     volumes:
       - "traefik_data:/data"
@@ -50,4 +58,3 @@ volumes:
   nginx_data:
   caddy_data:
   traefik_data:
-  

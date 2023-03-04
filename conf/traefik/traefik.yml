@@ -10,17 +10,19 @@ entryPoints:
     http:
       tls:
         certResolver: letsencrypt
-    http2:
-    http3:
-      advertisedPort: 443
+    http3: {}
 
 
 providers:
   docker:
-    defaultRule: "Host(`{{ Name }}.docker`)"
+    exposedbydefault: false
+    defaultRule: "Host(`{{ .Name }}.docker.proxy`)"
+    endpoint: "unix:///var/run/docker.sock"
 
 http:
   routers:
+    aidhan-me:
+      rule: "Host(`{{ .Name }}.aidhan.me`)"
 
 
 certificatesResolvers:
