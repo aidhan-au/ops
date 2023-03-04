@@ -16,23 +16,16 @@ entryPoints:
 providers:
   docker:
     exposedbydefault: false
-    defaultRule: "Host(`{{ .Name }}.docker.proxy`)"
+    defaultRule: "Host(`{{ normalize .Name }}.aidhan.me`)"
     endpoint: "unix:///var/run/docker.sock"
-
-http:
-  routers:
-    aidhan-me:
-      rule: "Host(`{{ .Name }}.aidhan.me`)"
-
 
 certificatesResolvers:
   myresolver:
     acme:
-      caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+      caServer: https://acme-v02.api.letsencrypt.org/directory
       email: admin@aidhan.me
       storage: /data/acme.json
       httpChallenge:
-        # used during the challenge
         entryPoint: web
 
 api:

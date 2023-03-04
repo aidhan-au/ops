@@ -10,6 +10,7 @@ services:
      - "./conf/nginx:/etc/nginx"
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`nginx.aidhan.me`)"
 
   caddy:
     container_name: "caddy"
@@ -21,10 +22,10 @@ services:
      - "./conf/caddy/Caddyfile:/etc/caddy/Caddyfile"
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`caddy.aidhan.me`)"
 
   proxy:
-    container_name: "traefic"
-
+    container_name: "traefik"
     image: traefik:latest
     volumes:
       - "traefik_data:/data"
