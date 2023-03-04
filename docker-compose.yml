@@ -45,3 +45,9 @@ services:
   #   - nginx:/etc/nginx
   #  ports:
   #   - "8080:80"
+
+volumes:
+  nginx_data:
+  caddy_data:
+  traefik_data:
+  
