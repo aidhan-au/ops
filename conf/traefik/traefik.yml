@@ -9,7 +9,7 @@ entryPoints:
     address: ":443"
     http:
       tls:
-        certResolver: letsencrypt
+        certResolver: letsencrypt-staging
     http3: {}
 
 
@@ -20,11 +20,18 @@ providers:
     endpoint: "unix:///var/run/docker.sock"
 
 certificatesResolvers:
-  myresolver:
+  letsencrypt:
     acme:
       caServer: https://acme-v02.api.letsencrypt.org/directory
       email: admin@aidhan.me
       storage: /data/acme.json
+      httpChallenge:
+        entryPoint: web
+  letsencrypt-staging:
+    acme:
+      caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+      email: admin@aidhan.me
+      storage: /data/acme-staging.json
       httpChallenge:
         entryPoint: web
 
