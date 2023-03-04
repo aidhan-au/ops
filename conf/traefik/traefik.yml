@@ -17,6 +17,7 @@ entryPoints:
 
 providers:
   docker:
+    defaultRule: "Host(`{{ Name }}.docker`)"
 
 http:
   routers:
