@@ -1,7 +1,36 @@
+experimental:
+  http3: true
+
+entryPoints:
+  web:
+    address: ":80"
+
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        certResolver: letsencrypt
+    http2:
+    http3:
+      advertisedPort: 443
+
+
 providers:
   docker:
-    defaultRule: "Host(`{{ trimPrefix `/` .Name }}.aidhan.me`)"
 
-# API and dashboard configuration
+http:
+  routers:
+
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+      email: admin@aidhan.me
+      storage: /data/acme.json
+      httpChallenge:
+        # used during the challenge
+        entryPoint: web
+
 api:
   insecure: true
