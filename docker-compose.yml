@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  web-1:
+  web:
     container_name: "nginx"
     image: nginx:alpine
     volumes:
@@ -11,7 +11,7 @@ services:
     labels:
       - "traefik.enable=true"
 
-  web-2:
+  caddy:
     container_name: "caddy"
     image: caddy:alpine
     volumes:
