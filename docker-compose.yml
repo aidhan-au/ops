@@ -4,9 +4,44 @@ services:
   web:
     image: nginx:alpine
     volumes:
-      - ./conf/nginx:/etc/nginx
-      - /srv:/usr/share/nginx/html
-    ports: 
-      - "80:80"
-      - "443:443"
-  
+     - /srv:/srv
+     - nginx_data:/data
+     - $PWD/conf/nginx:/etc/nginx
+
+  caddy:
+    image: caddy:alpine
+    volumes:
+     - /srv:/srv
+     - caddy_data:/data
+     - $PWD/conf/caddy:/config
+     #- $PWD/conf/caddy/Caddyfile:/etc/caddy/Caddyfile
+
+  proxy:
+    image: traefik:latest
+    volumes:
+     - traefik_data:/data
+     - /var/run/docker.sock:/var/run/docker.sock
+     - $PWD/conf/traefik:/etc/traefik
+    ports:
+     - "80:80"
+     - "443:443"
+     - "8080:8080"
+
+  #php:
+  #  image: php:fpm-alpine
+
+  #sqldb:
+  #  image: postgres:alpine
+  #  volumes:
+  #   - webvol:/usr/share/nginx/html
+  #   - nginx:/etc/nginx
+  #  ports:
+  #   - "8080:80"
+
+  #docdb:
+  #  image: postgres:alpine
+  #  volumes:
+  #   - webvol:/usr/share/nginx/html
+  #   - nginx:/etc/nginx
+  #  ports:
+  #   - "8080:80"
