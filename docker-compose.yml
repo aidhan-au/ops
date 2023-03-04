@@ -37,6 +37,7 @@ services:
      - "8080:8080"
 
   php:
+    container_name: "php"
     image: php:fpm-alpine
 
   #sqldb:
