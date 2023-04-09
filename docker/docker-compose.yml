@@ -19,12 +19,13 @@ services:
   web_caddy:
     image: caddy:alpine
     restart: always
+    user: www-data
     ports:
       - "80:80"
       - "443:443"
       - "443:443/udp"
     volumes:
-      - /srv:/srv
+      - /srv:/var/www/html
       - caddy_data:/data
       - ../conf/caddy:/etc/caddy
     networks:
@@ -49,10 +50,9 @@ services:
   php:
     image: php:fpm-alpine
     restart: always
-    ports:
-      - "9000:9000"
+    user: www-data
     volumes:
-      - /srv:/srv
+      - /srv:/var/www/html
     networks:
       - web
       - db
