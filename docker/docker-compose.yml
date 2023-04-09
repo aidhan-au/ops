@@ -1,0 +1,108 @@
+version: "3"
+
+services:
+  # web_nginx:
+  #   image: nginx:alpine
+  #   restart: always
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #     - "443:443/udp"
+  #   volumes:
+  #     - /srv:/var/www/html
+  #     - ../conf/nginx:/etc/nginx
+  #   networks:
+  #     - web
+  #   depends_on:
+  #     - "php"
+
+  web_caddy:
+    image: caddy:alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - /srv:/var/www/html
+      - caddy_data:/data
+      - ../conf/caddy:/etc/caddy
+    networks:
+      - web
+    depends_on:
+      - "php"
+
+  # api_gateway:
+  #   image: graphql mesh
+  # graphlq
+  #   image: graphql-yoga
+  # rest
+  #   image: graphql-sofa
+
+  # node:
+  #   image: node:alpine
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - web:/var/www/html
+
+  php:
+    image: php:fpm-alpine
+    restart: always
+    networks:
+      - web
+      - db
+    depends_on:
+      - "sql_db"
+      - "obj_db"
+
+  sql_db:
+    image: cockroachdb/cockroach:latest
+    restart: always
+    ports:
+      - "26257:26257"
+    volumes:
+      - roach_data:/cockroach/cockroach-data
+    networks:
+      - db
+    command: start-single-node
+    environment:
+      - COCKROACH_USER=aidhan
+      - COCKROACH_PASSWORD=MarsAndBack
+
+  obj_db:
+    image: couchdb:latest
+    restart: always
+    ports:
+      - "5984:5984"
+    volumes:
+      - couch_data:/opt/couchdb/data
+    networks:
+      - db
+    environment:
+      - COUCHDB_USER=aidhan
+      - COUCHDB_PASSWORD=MarsAndBack
+
+  # identity:
+  #   image: kratos
+
+  # auth:
+  #   image: oathkeeper
+
+  # oauth:
+  #   image: hydra
+
+  # secrets:
+  #   image: vault
+
+volumes:
+  # nginx_data:
+  caddy_data:
+  roach_data:
+  couch_data:
+
+networks:
+  web:
+    driver: bridge
+  db:
+    driver: bridge

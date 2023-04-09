@@ -1,9 +1,4 @@
-{
-    auto_https off
-}
-
 caddy.aidhan.me {
-    root * /srv/public
-    php_fastcgi php:9000
+    root * /var/www/html
     file_server browse
 }
