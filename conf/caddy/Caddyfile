@@ -5,9 +5,8 @@
 
 aidhan.net,
 www.aidhan.net {
-    root * /var/www/html
+    root * /srv
     
     encode zstd gzip
-    try_files {path} /index.php?{query}
     php_fastcgi php:9000
 }

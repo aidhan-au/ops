@@ -9,7 +9,7 @@ services:
   #     - "443:443"
   #     - "443:443/udp"
   #   volumes:
-  #     - /srv:/var/www/html
+  #     - /srv:/srv
   #     - ../conf/nginx:/etc/nginx
   #   networks:
   #     - web
@@ -24,7 +24,7 @@ services:
       - "443:443"
       - "443:443/udp"
     volumes:
-      - /srv:/var/www/html
+      - /srv:/srv
       - caddy_data:/data
       - ../conf/caddy:/etc/caddy
     networks:
