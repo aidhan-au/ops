@@ -4,13 +4,14 @@ Designed for Debian 11 - may work with previous versions and/or recent Ubuntu re
 Update and get basic packages
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y git build-essential zip mosh wget curl nano ufw ca-certificates gnupg gnupg2 lsb-release debian-archive-keyring
+sudo apt install -y git build-essential zip mosh wget curl nano ufw ca-certificates gnupg gnupg2 lsb-release debian-archive-keyring snapd && sudo snap install core
 ```
 
 Add a user - replace username if required
 ```bash
-sudo adduser aidhan && sudo adduser aidhan sudo && \
-wget -O - -o /dev/null https://raw.githubusercontent.com/aidhan-creative/ops/main/id_rsa.pub > /home/aidhan/.ssh/authorized_keys
+sudo adduser aidhan && sudo adduser aidhan sudo && sudo mkdir /home/aidhan/.ssh \
+sudo wget -O - -o /dev/null https://raw.githubusercontent.com/aidhan-creative/ops/main/id_rsa.pub \
+> /home/aidhan/.ssh/authorized_keys && chown -R aidhan:aidhan /home/aidhan/.ssh && sudo systemctl restart ssh
 ```
 
 Remove old users - modify usernames as required
@@ -22,7 +23,7 @@ Do basic security - firewall up, disable root login, force key auth
 ```bash
 sudo ufw disable && sudo ufw reset && sudo ufw allow 22 && sudo ufw enable
 
-wget -O - -o /dev/null https://raw.githubusercontent.com/aidhan-creative/ops/main/setup/sshd_config > /etc/ssh/sshd_config && \
+sudo wget -O - -o /dev/null https://raw.githubusercontent.com/aidhan-creative/ops/main/setup/sshd_config > /etc/ssh/sshd_config && \
 sudo systemctl restart ssh
 ```
 
