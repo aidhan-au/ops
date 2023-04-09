@@ -1,4 +1,13 @@
-caddy.aidhan.me {
+{
+    admin off
+    email admin@aidhan.net
+}
+
+aidhan.net,
+www.aidhan.net {
     root * /var/www/html
-    file_server browse
+    
+    encode zstd gzip
+    try_files {path} /index.php?{query}
+    php_fastcgi php:9000
 }
