@@ -19,7 +19,6 @@ services:
   web_caddy:
     image: caddy:alpine
     restart: always
-    user: www-data
     ports:
       - "80:80"
       - "443:443"
@@ -50,7 +49,6 @@ services:
   php:
     image: php:fpm-alpine
     restart: always
-    user: www-data
     volumes:
       - /srv:/srv
     networks:
