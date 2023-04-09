@@ -9,4 +9,5 @@ www.aidhan.net {
     
     encode zstd gzip
     php_fastcgi php:9000
+    file_server
 }

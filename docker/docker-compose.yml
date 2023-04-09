@@ -49,6 +49,10 @@ services:
   php:
     image: php:fpm-alpine
     restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /srv:/srv
     networks:
       - web
       - db
