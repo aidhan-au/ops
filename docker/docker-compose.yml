@@ -58,7 +58,6 @@ services:
       - db
     depends_on:
       - "sql_db"
-      - "obj_db"
 
   sql_db:
     image: cockroachdb/cockroach:latest
