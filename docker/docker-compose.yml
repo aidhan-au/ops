@@ -51,7 +51,7 @@ services:
       - roach_data:/cockroach/cockroach-data
     networks:
       - db
-    command: start-single-node
+    command: start-single-node --insecure
     environment:
       - COCKROACH_USER=aidhan
       - COCKROACH_PASSWORD=MarsAndBack
