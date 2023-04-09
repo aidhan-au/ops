@@ -7,24 +7,25 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y git build-essential zip mosh wget curl nano ufw ca-certificates gnupg gnupg2 lsb-release debian-archive-keyring snapd && sudo snap install core
 ```
 
-Add a user - replace username if required
+Add a user
 ```bash
 sudo adduser aidhan && sudo adduser aidhan sudo && sudo mkdir /home/aidhan/.ssh \
-sudo wget -O - -o /dev/null https://raw.githubusercontent.com/aidhan-creative/ops/main/id_rsa.pub \
-> /home/aidhan/.ssh/authorized_keys && chown -R aidhan:aidhan /home/aidhan/.ssh && sudo systemctl restart ssh
+wget -O - https://raw.githubusercontent.com/aidhan-creative/ops/main/id_rsa.pub | \
+sudo tee /home/aidhan/.ssh/authorized_keys && sudo chown -R aidhan:aidhan /home/aidhan/.ssh && sudo systemctl restart ssh
 ```
 
-Remove old users - modify usernames as required
+Remove old users
 ```bash
 sudo deluser --remove-home --remove-all-files debian
 ```
 
-Do basic security - firewall up, disable root login, force key auth
+Do basic security (firewall up, disable root login, force key auth) - run as root 
 ```bash
-sudo ufw disable && sudo ufw reset && sudo ufw allow 22 && sudo ufw enable
+ufw disable &&  ufw reset &&  ufw allow 22 &&  ufw enable
 
-sudo wget -O - -o /dev/null https://raw.githubusercontent.com/aidhan-creative/ops/main/setup/sshd_config > /etc/ssh/sshd_config && \
-sudo systemctl restart ssh
+sudo wget -O - https://raw.githubusercontent.com/aidhan-creative/ops/main/setup/sshd_config | \
+sudo tee /etc/ssh/sshd_config && \
+systemctl restart ssh
 ```
 
 Install GitHub CLI
