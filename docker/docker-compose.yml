@@ -1,23 +1,8 @@
 version: "3"
 
 services:
-  # web_nginx:
-  #   image: nginx:alpine
-  #   restart: always
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #     - "443:443/udp"
-  #   volumes:
-  #     - /srv:/srv
-  #     - ../conf/nginx:/etc/nginx
-  #   networks:
-  #     - web
-  #   depends_on:
-  #     - "php"
-
-  web_caddy:
-    image: caddy:alpine
+  nginx:
+    image: nginx:alpine
     restart: always
     ports:
       - "80:80"
@@ -25,8 +10,8 @@ services:
       - "443:443/udp"
     volumes:
       - /srv:/srv
-      - caddy_data:/data
-      - ../conf/caddy:/etc/caddy
+      - ../conf/nginx:/etc/nginx
+      - /etc/letsencrypt:/etc/letsencrypt
     networks:
       - web
     depends_on:
