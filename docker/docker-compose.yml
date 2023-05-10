@@ -93,6 +93,7 @@ services:
       - kratos-sqlite:/var/lib/sqlite
       - ../conf/kratos:/etc/config/kratos
     networks:
+      - web
       - auth
 
 volumes:
