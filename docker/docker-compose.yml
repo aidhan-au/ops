@@ -63,7 +63,7 @@ services:
       - DSN=sqlite:///var/lib/sqlite/db.sqlite?_fk=true&mode=rwc
     volumes:
       - kratos-sqlite:/var/lib/sqlite
-      - ./contrib/quickstart/kratos/email-password:/etc/config/kratos
+      - ../conf/kratos:/etc/config/kratos
     command: -c /etc/config/kratos/kratos.yml migrate sql -e --yes
     restart: on-failure
     networks:
@@ -91,7 +91,7 @@ services:
     command: serve -c /etc/config/kratos/kratos.yml --dev --watch-courier
     volumes:
       - kratos-sqlite:/var/lib/sqlite
-      - ./contrib/quickstart/kratos/email-password:/etc/config/kratos
+      - ../conf/kratos:/etc/config/kratos
     networks:
       - auth
 
