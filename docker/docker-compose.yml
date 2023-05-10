@@ -25,7 +25,7 @@ services:
   #   image: graphql-sofa
 
   # node:
-  #   image: node:alpine
+  #   image: node:lts-alpine
   #   ports:
   #     - "80:80"
   #   volumes:
@@ -51,44 +51,68 @@ services:
       - roach_data:/cockroach/cockroach-data
     networks:
       - db
+      - auth
     command: start-single-node --insecure
     environment:
       - COCKROACH_USER=aidhan
       - COCKROACH_PASSWORD=MarsAndBack
 
-  obj_db:
-    image: couchdb:latest
-    restart: always
-    ports:
-      - "5984:5984"
-    volumes:
-      - couch_data:/opt/couchdb/data
-    networks:
-      - db
+  kratos-migrate:
+    image: oryd/kratos:v0.13.0
     environment:
-      - COUCHDB_USER=aidhan
-      - COUCHDB_PASSWORD=MarsAndBack
+      - DSN=sqlite:///var/lib/sqlite/db.sqlite?_fk=true&mode=rwc
+    volumes:
+      - type: volume
+        source: kratos-sqlite
+        target: /var/lib/sqlite
+        read_only: false
+      - type: bind
+        source: ./contrib/quickstart/kratos/email-password
+        target: /etc/config/kratos
+    command: -c /etc/config/kratos/kratos.yml migrate sql -e --yes
+    restart: on-failure
+    networks:
+      - auth
+  kratos-selfservice-ui-node:
+    image: oryd/kratos-selfservice-ui-node:v0.13.0
+    environment:
+      - KRATOS_PUBLIC_URL=http://kratos:4433/
+      - KRATOS_BROWSER_URL=http://127.0.0.1:4433/
+    networks:
+      - auth
+    restart: on-failure
 
-  # identity:
-  #   image: kratos
-
-  # auth:
-  #   image: oathkeeper
-
-  # oauth:
-  #   image: hydra
-
-  # secrets:
-  #   image: vault
+  kratos:
+    depends_on:
+      - kratos-migrate
+    image: oryd/kratos:v0.13.0
+    ports:
+      - "4433:4433" # public
+      - "4434:4434" # admin
+    restart: unless-stopped
+    environment:
+      - DSN=sqlite:///var/lib/sqlite/db.sqlite?_fk=true
+      - LOG_LEVEL=trace
+    command: serve -c /etc/config/kratos/kratos.yml --dev --watch-courier
+    volumes:
+      - type: volume
+        source: kratos-sqlite
+        target: /var/lib/sqlite
+        read_only: false
+      - type: bind
+        source: ./contrib/quickstart/kratos/email-password
+        target: /etc/config/kratos
+    networks:
+      - auth
 
 volumes:
-  # nginx_data:
-  caddy_data:
   roach_data:
-  couch_data:
+  kratos-sqlite:
 
 networks:
   web:
     driver: bridge
   db:
+    driver: bridge
+  auth:
     driver: bridge
