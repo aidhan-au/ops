@@ -1,4 +1,18 @@
-ssl_session_timeout 10m;
+ssl_stapling on;
+ssl_stapling_verify on;
+resolver_timeout 4s;
+resolver 1.1.1.1 8.8.8.8 valid=300s;
+
 ssl_session_tickets on;
-ssl_session_cache shared:SSL:10m;
+ssl_session_timeout 10m;
+ssl_session_cache shared:SSL:8m;
+
 ssl_protocols TLSv1.2 TLSv1.3;
+ssl_prefer_server_ciphers on;
+ssl_ciphers EECDH+AESGCM:EDH+AESGCM;
+ssl_ecdh_curve secp384r1
+
+add_header X-Frame-Options DENY;
+add_header X-Content-Type-Options nosniff;
+add_header X-XSS-Protection "1; mode=block";
+add_header Strict-Transport-Security "max-age=2419200; includeSubDomains; preload";
