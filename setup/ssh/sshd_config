@@ -1,0 +1,41 @@
+Include /etc/ssh/sshd_config.d/*.conf
+
+Port 22
+#ListenAddress 0.0.0.0
+#ListenAddress ::#
+
+#LogLevel INFO
+#PidFile /var/run/sshd.pid
+#HostKey /etc/ssh/ssh_host_rsa_key
+#HostKey /etc/ssh/ssh_host_ecdsa_key
+#HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Authentication
+StrictModes yes
+MaxAuthTries 6
+MaxSessions 10
+LoginGraceTime 2m
+PermitRootLogin no
+PasswordAuthentication no
+PermitEmptyPasswords no
+PubkeyAuthentication yes
+AuthenticationMethods publickey
+AuthorizedKeysFile	.ssh/authorized_keys
+ChallengeResponseAuthentication no
+HostbasedAuthentication no
+UsePAM yes
+
+# Forwarding
+AllowAgentForwarding yes
+AllowTcpForwarding yes
+#X11Forwarding yes
+#PermitTunnel no
+#GatewayPorts no
+
+# Miscellaneous
+PrintMotd no
+Compression yes
+TCPKeepAlive yes
+ClientAliveInterval 120
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server

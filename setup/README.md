@@ -15,7 +15,7 @@ Add a user
 adduser aidhan && adduser aidhan sudo
 
 mkdir /home/aidhan/.ssh && \
-wget -O - https://raw.githubusercontent.com/aidhan-creative/ops/main/id_rsa.pub > /home/aidhan/.ssh/authorized_keys
+wget -O - https://raw.githubusercontent.com/aidhan-creative/ops/main/setup/ssh/sshd_config > /home/aidhan/.ssh/authorized_keys
 
 sudo chmod 700 /home/aidhan/.ssh && sudo chmod 600 /home/aidhan/.ssh/authorized_keys
 sudo chown -R aidhan:aidhan /home/aidhan/.ssh && sudo systemctl restart sshd
