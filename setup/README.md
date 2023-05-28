@@ -15,7 +15,7 @@ Add a user
 adduser aidhan && adduser aidhan sudo
 
 mkdir /home/aidhan/.ssh && \
-wget -O - https://raw.githubusercontent.com/aidhan-creative/ops/main/setup/ssh/sshd_config > /home/aidhan/.ssh/authorized_keys
+wget -O - https://raw.githubusercontent.com/aidhan-creative/opsmain/setup/ssh/authorized_keys > /home/aidhan/.ssh/authorized_keys
 
 sudo chmod 700 /home/aidhan/.ssh && sudo chmod 600 /home/aidhan/.ssh/authorized_keys
 sudo chown -R aidhan:aidhan /home/aidhan/.ssh && sudo systemctl restart sshd
@@ -33,7 +33,7 @@ Do basic security (firewall up, disable root login, force key auth) - run as roo
 ufw disable && ufw reset
 ufw allow 22 && ufw enable
 
-wget -O - https://raw.githubusercontent.com/aidhan-creative/ops/main/setup/sshd_config > /etc/ssh/sshd_config
+wget -O - https://raw.githubusercontent.com/aidhan-creative/opsmain/setup/ssh/sshd_config > /etc/ssh/sshd_config
 rm /etc/ssh/sshd_config.d/* && systemctl restart ssh
 ```
 
